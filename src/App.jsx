@@ -7,7 +7,7 @@ function App() {
   const [movies, setMovies] = useState([]);
 
   function fetchMoviesHandler() {
-    fetch('https://swapi.dev/api/films')
+    fetch('https://swapi.py4e.com/api/films')
       .then((response) => {
         return response.json();
       })
