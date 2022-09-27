@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 import MoviesList from './components/MoviesList';
+import AddMovie from './components/AddMovie';
 import './App.css';
 
 function App() {
@@ -12,11 +13,11 @@ function App() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('https://swapi.py4e.com/api/films');
-      console.log(response);
+      const response = await fetch('https://swapi.dev/api/films/');
       if (!response.ok) {
-        throw new Error('Something went a little ka ka!');
+        throw new Error('Something went a little ka ka');
       }
+
       const data = await response.json();
 
       const transformedMovies = data.results.map((movieData) => {
@@ -38,7 +39,11 @@ function App() {
     fetchMoviesHandler();
   }, [fetchMoviesHandler]);
 
-  let content = <p>No movies found.</p>;
+  function addMovieHandler(movie) {
+    console.log(movie);
+  }
+
+  let content = <p>Found no movies.</p>;
 
   if (movies.length > 0) {
     content = <MoviesList movies={movies} />;
@@ -54,6 +59,9 @@ function App() {
 
   return (
     <React.Fragment>
+      <section>
+        <AddMovie onAddMovie={addMovieHandler} />
+      </section>
       <section>
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       </section>
